@@ -1,0 +1,36 @@
+pipeline {
+    agent {
+        label 'agent'
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'git@github.com:Chaitanyathite99/notepad-app.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo "Building the application"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Testing the application"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                    docker compose up -d --build
+                    docker ps
+                '''
+            }
+        }
+
+    }
+}
